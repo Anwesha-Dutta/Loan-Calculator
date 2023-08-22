@@ -1,4 +1,4 @@
-
+let myChart;
 const loanAmountInput =document.querySelector(".loan-amount");
 const interestRateInput =document.querySelector(".interest-rate");
 const loanTenureInput =document.querySelector(".loan-tenure");
@@ -14,18 +14,17 @@ let interestRate =parseFloat(interestRateInput.value);
 let loanTenure =parseFloat(loanTenureInput.value);
 
 let interest = interestRate /12/100;
-let myChart;
 
 const displayChart = (totalInterestPayableValue , totalAmount) => {
     const ctx = document.getElementById('myChart').getContext("2d");
 
-      myChart = new Chart(ctx , {
+  myChart = new Chart(ctx , {
       type: 'pie',
       data: {
         labels: ['Total Interest', 'Principal Loan Amount'],
         datasets: [{
       
-          data: [totalInterestPayableValue , totalAmountValue],
+          data: [totalInterestPayableValue , totalAmount],
           backgroundColor:["#e63946" ,"#14213d"],
 
           borderWidth: 0,
@@ -34,10 +33,10 @@ const displayChart = (totalInterestPayableValue , totalAmount) => {
       
  });
 };
-  const updateChart = (totalInterestPayableValue , totalAmountValue) =>{
+  const updateChart = (totalInterestPayableValue , totalAmount) =>{
 
   myChart.data.datasets[0].data[0] = totalInterestPayableValue;
-  myChart.data.datasets[0].data[1] = totalAmountValue;
+  myChart.data.datasets[0].data[0] = totalAmount;
   myChart.update();
   };
 
