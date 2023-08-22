@@ -3,7 +3,7 @@
     width: 600px;
     margin: 24px auto;
     background: #fff;
-    box-shadow: 0 12x 50px -11px rgb(0, 0, 0, 0.2);
+    box-shadow: 0 12x 50px -11px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     color: #14213d;
     overflow: hidden;
@@ -20,7 +20,7 @@
     padding: 32px;
 }
 
-.loan-calculator h2 {
+.loan-calculator .top h2 {
     margin-top: 0;
 }
 

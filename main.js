@@ -15,7 +15,31 @@ let loanTenure =parseFloat(loanTenureInput.value);
 
 let interest = interestRate /12/100;
 
-const displayChart = (totalInterestPayableValue , totalAmount) => {
+const checkValues =() =>
+{
+  let loanAmountValue =loanAmountInput.value;
+  let interestRateValue = interestRateInput.value;
+  let loanTenureValue = loanTenureInput.value;
+
+  let regexNumber = /^[0-9]+$/;
+  if(!loanAmountValue.match(regexNumber))
+  {
+    loanAmountInput.value = "10000";
+  }
+
+  if(!loanTenureValue.match(regexNumber))
+  {
+    loanTenureInput.value = "12";
+  }
+
+  let regexDecimalNumber =/^(\d*\.)?\d+$/;
+  if(!interestRateValue.match(regexDecimalNumber))
+  {
+    interestRateInput.value ="7.5";
+  }
+};
+
+const displayChart = (totalInterestPayableValue ) => {
     const ctx = document.getElementById('myChart').getContext("2d");
 
   myChart = new Chart(ctx , {
@@ -24,7 +48,7 @@ const displayChart = (totalInterestPayableValue , totalAmount) => {
         labels: ['Total Interest', 'Principal Loan Amount'],
         datasets: [{
       
-          data: [totalInterestPayableValue , totalAmount],
+          data: [totalInterestPayableValue , loanAmount],
           backgroundColor:["#e63946" ,"#14213d"],
 
           borderWidth: 0,
@@ -33,15 +57,17 @@ const displayChart = (totalInterestPayableValue , totalAmount) => {
       
  });
 };
-  const updateChart = (totalInterestPayableValue , totalAmount) =>{
+  const updateChart = (totalInterestPayableValue) =>{
 
   myChart.data.datasets[0].data[0] = totalInterestPayableValue;
-  myChart.data.datasets[0].data[0] = totalAmount;
+  myChart.data.datasets[0].data[0] = loanAmount;
   myChart.update();
   };
 
 
 const calculateEMI =() => {
+  checkValues();
+  refreshInputValues();
     let emi =
     loanAmount *
     interest *
@@ -62,11 +88,11 @@ const updateData = (emi) =>
 
   if(myChart)
   {
-    updateChart(totalInterestPayable,totalAmount);
+    updateChart(totalInterestPayable);
   }
   else{
     
-  displayChart(totalInterestPayable,totalAmount);
+  displayChart(totalInterestPayable);
   }
 
 
@@ -82,7 +108,6 @@ const refreshInputValues = () => {
 
 const init =() =>
 {
-    refreshInputValues();
    let emi = calculateEMI();
    updateData (emi);
 };
